@@ -2,48 +2,50 @@ import requests
 from bs4 import BeautifulSoup
 from time import sleep
 
-compra = input('O que deseja cotar? ')
+while True:
 
-sleep(3)
+    compra = input('O que deseja cotar? ')
 
-url_base = 'https://lista.mercadolivre.com.br/'
+    sleep(3)
 
-url = (url_base+compra)
+    url_base = 'https://lista.mercadolivre.com.br/'
 
-class Buscar():
-    
-    def get_text(valor_default=compra):
+    url = (url_base+compra)
+
+    class Buscar():
         
-        #realizando o get da pagina
-        resposta = requests.get(url)
-    
-        #ativando o BeautifulSoup, para "Arrumar" o codigo HTML
-        site = BeautifulSoup(resposta.text, 'html.parser')
-    
-        #div com o produto
-        produtos = site.findAll('div', attrs={'class': 'ui-search-result__wrapper shops__result-wrapper'})
-
-        for produto in produtos:
-        
-            #titulo do produto, com o nome
-            #erro ao imprimir
-            titulo = produto.find('h2', attrs={'class': 'ui-search-item__title shops__item-title'})
+        def get_text(valor_default=compra):
             
-            
-            #selecionando apenas o valor em rais
-            reais = produto.find('span', attrs={'class': 'price-tag-text-sr-only'})
-            #centavos = produto.find('span', attrs={'class': ''})
+            #realizando o get da pagina
+            resposta = requests.get(url)
         
-            #selecionando o link em uma variavel(link)
-            link = produto.find('a', attrs={'class':'ui-search-link'})
+            #ativando o BeautifulSoup, para "Arrumar" o codigo HTML
+            site = BeautifulSoup(resposta.text, 'html.parser')
         
-            print('Produto:', titulo.text)
-            print('Valor do produto: R$',reais.text )
-            print('Link da pagina:',link['href'])
-            
-            print('\n\n')
-    
-    get_text()
-    
+            #div com o produto
+            produtos = site.findAll('div', attrs={'class': 'ui-search-result__wrapper shops__result-wrapper'})
 
-Buscar()
+            for produto in produtos:
+            
+                #titulo do produto, com o nome
+                #erro ao imprimir
+                titulo = produto.find('h2', attrs={'class': 'ui-search-item__title shops__item-title'})
+                
+                
+                #selecionando apenas o valor em rais
+                reais = produto.find('span', attrs={'class': 'price-tag-text-sr-only'})
+                #centavos = produto.find('span', attrs={'class': ''})
+            
+                #selecionando o link em uma variavel(link)
+                link = produto.find('a', attrs={'class':'ui-search-link'})
+            
+                print('Produto:', titulo.text)
+                print('Valor do produto: R$',reais.text )
+                print('Link da pagina:',link['href'])
+                
+                print('\n\n')
+        
+        get_text()
+        
+
+    Buscar()
