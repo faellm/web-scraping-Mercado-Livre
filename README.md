@@ -1,4 +1,3 @@
-# web-scraping-Mercado-Livre
-
-## projeto realizado para estudo de Web Scraping
-## duração de projeto: +/- 1 dia 
+<h1> Web Scraping no Mercado Livre </h1>
+> Status: Concluido. </br>
+> Linguagem: Python (3.10.6) 
