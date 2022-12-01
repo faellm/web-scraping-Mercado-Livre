@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
+import re
 
 while True:
 
@@ -24,13 +25,13 @@ while True:
         
             #div com o produto
             produtos = site.findAll('div', attrs={'class': 'ui-search-result__wrapper shops__result-wrapper'})
-
+            
             for produto in produtos:
             
                 #titulo do produto, com o nome
                 #erro ao imprimir
-                titulo = produto.find('h2', attrs={'class': 'ui-search-item__title shops__item-title'})
-                
+                titulo = produto.find('h2', attrs= {'class': 'ui-search-item__title'})
+                #titulo2 = produto.find('div', class_ = re.compile('ui-search-item__title'))
                 
                 #selecionando apenas o valor em rais
                 reais = produto.find('span', attrs={'class': 'price-tag-text-sr-only'})
