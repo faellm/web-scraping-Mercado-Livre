@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from time import sleep
 import re
+import openpyxl
 
 while True:
 
@@ -10,9 +11,11 @@ while True:
     sleep(3)
 
     url_base = 'https://lista.mercadolivre.com.br/'
-
     url = (url_base+compra)
 
+    #excel:
+    wb = openpyxl.Workbook()
+    ws = wb.active
     class Buscar():
         
         def get_text(valor_default=compra):
@@ -25,9 +28,10 @@ while True:
         
             #div com o produto
             produtos = site.findAll('div', attrs={'class': 'ui-search-result__wrapper shops__result-wrapper'})
-            
+            count = 0
             for produto in produtos:
-            
+
+                count+=1
                 #titulo do produto, com o nome
                 #erro ao imprimir
                 titulo = produto.find('h2', attrs= {'class': 'ui-search-item__title'})
@@ -39,11 +43,22 @@ while True:
             
                 #selecionando o link em uma variavel(link)
                 link = produto.find('a', attrs={'class':'ui-search-link'})
-            
+
+                print('Contador: ', count)
                 print('Produto:', titulo.text)
                 print('Valor do produto: R$',reais.text )
                 print('Link da pagina:',link['href'])
-                
+
+                ws['A1'] = 'TITULO'
+                ws['B1'] = 'VALOR EM REAL'
+
+                for i in range(0,count):
+                    i = count+1
+                    ws[f'A{i}'] = titulo.text
+                    ws[f'B{i}'] = reais.text
+
+                    wb.save('data.xlsx')
+
                 print('\n\n')
         
         get_text()
