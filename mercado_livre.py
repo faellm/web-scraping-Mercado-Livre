@@ -3,10 +3,26 @@ from bs4 import BeautifulSoup
 from time import sleep
 import re
 import openpyxl
+from PySimpleGUI import PySimpleGUI as sg
 
-while True:
+#  Definindo tema
+sg.theme('Reddit')
+layout = [
+    [sg.Text('Pesquisa ')],
+    [sg.Input()],
+    [sg.Text('1 página = 10 pessoas')],
+    [sg.Text('Quantidade:')],
+    [sg.Input()],
+    [sg.Button('Buscar')]
+]
 
-    compra = input('O que deseja cotar? ')
+#Justando janela do PySimpleGUI
+window = sg.Window('Mercado Livre', layout)
+
+
+def scraping ():
+
+    #compra = (valores[0])
 
     sleep(3)
 
@@ -65,3 +81,25 @@ while True:
         
 
     Buscar()
+    
+#Ler os eventos do front end
+while True:
+    
+    
+    eventos, valores = window.read()
+    #var do input do Layout
+    compra = (valores[0])
+    # input de quantas paginas
+    #input_page = 1
+    print(valores[0])
+    input_page = (valores[1])  
+    
+    if eventos == sg.WINDOW_CLOSED:
+        
+        print('fechando...')
+        break
+        
+    if eventos == 'Buscar':
+        scraping()
+        print('tudo correto.')
+        break
