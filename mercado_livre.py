@@ -10,9 +10,6 @@ sg.theme('Reddit')
 layout = [
     [sg.Text('Pesquisa ')],
     [sg.Input()],
-    [sg.Text('1 página = 10 pessoas')],
-    [sg.Text('Quantidade:')],
-    [sg.Input()],
     [sg.Button('Buscar')]
 ]
 
@@ -89,10 +86,6 @@ while True:
     eventos, valores = window.read()
     #var do input do Layout
     compra = (valores[0])
-    # input de quantas paginas
-    #input_page = 1
-    print(valores[0])
-    input_page = (valores[1])  
     
     if eventos == sg.WINDOW_CLOSED:
         
